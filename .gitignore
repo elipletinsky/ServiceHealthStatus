@@ -2,7 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/ServiceHealthStatus/.vs
+*/.vs
 **/obj
+**/bin
 **/launchSettings.json
 *.csproj.user
+.vs
