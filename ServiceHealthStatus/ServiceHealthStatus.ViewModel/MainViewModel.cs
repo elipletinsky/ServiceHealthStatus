@@ -9,7 +9,7 @@ namespace ServiceHealthStatus.ViewModel
 {
     public class MainViewModel: BaseViewModel<IEnumerable<Service>, Service, ServiceViewModel>
     {
-        public string ModelFilePath { get; set; } //@"j:\temp\CatalogServiceModel.json"
+        public string ModelFilePath { get; set; }
         public MainViewModel(IServiceProvider services) : base(services)
         {
            

@@ -9,12 +9,7 @@ using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public interface IViewModel<TChildModel>
-    {
-        TChildModel Model { get; set; }
-        Task Populate();
-    }
-
+    
     public class DummyViewModel : IViewModel<object>
     {
         public object Model { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
