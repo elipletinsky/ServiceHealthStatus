@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceHealthStatus.ViewModel
+namespace ServiceHealthStatus.ViewModel.Model
 {
     public class Environment : ServiceItemBase
     {

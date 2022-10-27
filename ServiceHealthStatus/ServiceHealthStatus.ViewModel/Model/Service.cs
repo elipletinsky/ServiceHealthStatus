@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ServiceHealthStatus.ViewModel
+namespace ServiceHealthStatus.ViewModel.Model
 {
     public class Service : ServiceItemBase
     {
@@ -23,10 +23,10 @@ namespace ServiceHealthStatus.ViewModel
                 throw;
             }
         }
-           
+
 
         public Environment[] Environments { get; set; }
     }
 
-    
+
 }
