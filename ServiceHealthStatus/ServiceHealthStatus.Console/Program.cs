@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using ServiceHealthStatus.ViewModel;
+using System;
 using System.Collections;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
