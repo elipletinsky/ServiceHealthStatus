@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace ServiceHealthStatus.ViewModel
+namespace ServiceHealthStatus.ViewModel.Model
 
 {
     public class ServiceItemBase

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public class Environment : ServiceItemBase
+    public interface IViewModel<TChildModel>
     {
-        public ServiceInstance[] Instances { get; set; }
+        TChildModel Model { get; set; }
+        Task Populate();
     }
 }
