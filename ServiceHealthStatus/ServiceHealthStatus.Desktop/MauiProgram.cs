@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ServiceHealthStatus.ViewModel;
 
 namespace ServiceHealthStatus.Desktop
 {
@@ -14,6 +15,9 @@ namespace ServiceHealthStatus.Desktop
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.ConfigureServices();
+            builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

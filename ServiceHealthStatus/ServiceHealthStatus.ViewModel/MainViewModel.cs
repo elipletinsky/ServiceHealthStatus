@@ -10,9 +10,17 @@ namespace ServiceHealthStatus.ViewModel
     public class MainViewModel: BaseViewModel<IEnumerable<Service>, Service, ServiceViewModel>
     {
         public string ModelFilePath { get; set; }
-        public MainViewModel(IServiceProvider services) : base(services)
+        public MainViewModel(IServiceProvider services) 
+            : base(services)
         {
            
+        }
+
+        private ServiceViewModel _selectedService;
+        public ServiceViewModel SelectedService
+        {
+            get => _selectedService;
+            set { _selectedService = value; OnPropertyChanged(nameof(SelectedService)); }
         }
 
         protected override Task<IEnumerable<Service>> GetChildrenModels()
@@ -21,9 +29,6 @@ namespace ServiceHealthStatus.ViewModel
             return Service.Load(ModelFilePath);
         }
 
-        public override bool CallChild()
-        {
-            return true;
-        }
+       
     }
 }

@@ -8,14 +8,32 @@ using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public class ServiceInstanceViewModel: BaseViewModel<ServiceInstance, object, DummyViewModel>
+    public class ServiceInstanceViewModel : BaseViewModel<ServiceInstance, object, DummyViewModel>
     {
-        public string Response { get; set; }
+        public string Response 
+        { 
+            get => _response; 
+            set 
+            {
+                _response = value;
+                OnPropertyChanged();
+            } 
+        }
 
-        public ServiceInstanceViewModel(IServiceProvider services)
-            : base(services)
+        private readonly IStatusProbeService _probeService;
+        private string _response;
+
+        public ServiceInstanceViewModel(IServiceProvider services, IStatusProbeService probeService)
+                    : base(services)
         {
+            _probeService = probeService;
+        }
 
+        protected override async Task DoExecuteProbe()
+        {
+            var result = await _probeService.Probe(Model.Url);
+            Response = result.body;
+            Status = ((int)result.status >= 200) && ((int)result.status <= 299);
         }
 
         public Task Populate()
@@ -23,11 +41,7 @@ namespace ServiceHealthStatus.ViewModel
             return Task.CompletedTask;
         }
 
-        public override bool CallChild()
-        {
-            bool noProblem = true;//temp
-            return noProblem;
-        }
+      
 
         protected override Task<IEnumerable<object>> GetChildrenModels()
         {
