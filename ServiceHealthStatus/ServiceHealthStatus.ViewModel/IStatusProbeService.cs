@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public interface IViewModel<TChildModel>
+    public  interface IStatusProbeService
     {
-        TChildModel Model { get; set; }
-        Task Populate();
-        Task PerfromExecuteProbe();
+        public Task<(string body, HttpStatusCode status)> Probe(string url);
     }
 }

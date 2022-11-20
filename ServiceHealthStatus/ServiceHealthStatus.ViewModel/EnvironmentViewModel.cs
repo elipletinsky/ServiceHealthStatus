@@ -1,24 +1,21 @@
 ﻿using ServiceHealthStatus.ViewModel.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceHealthStatus.ViewModel
 {
     public class EnvironmentViewModel : BaseViewModel<Model.Environment, Model.ServiceInstance, ServiceInstanceViewModel>
     {
-        public EnvironmentViewModel(IServiceProvider services) : base(services)
+        public EnvironmentViewModel(IServiceProvider services)
+            : base(services)
         {
         }
 
-
-        public override bool CallChild()
+        private ServiceInstanceViewModel _selectedServiceInstance;
+        public ServiceInstanceViewModel SelectedServiceInstance
         {
-            throw new NotImplementedException();
+            get => _selectedServiceInstance;
+            set { _selectedServiceInstance = value; OnPropertyChanged(nameof(SelectedServiceInstance)); }
         }
+
 
         protected override Task<IEnumerable<ServiceInstance>> GetChildrenModels()
         {

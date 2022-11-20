@@ -1,0 +1,63 @@
+﻿<Window x:Class="ServiceHealthStatus.DesktopWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServiceHealthStatus.DesktopWpf" 
+        xmlns:viewmodel="clr-namespace:ServiceHealthStatus.ViewModel;assembly=ServiceHealthStatus.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" Grid.Column="1" Background="Azure">
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TabControl Margin="10"  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" TabStripPlacement="Left">
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition  Width="4*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ListBox ItemsSource="{Binding Children}" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Background="AliceBlue">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Text="{Binding Model.Name, StringFormat='Name: {0}'}"  Grid.Row="0" Grid.Column="0" Padding="10"/>
+                                                        <TextBlock Text="{Binding Model.Url, StringFormat='URL: {0}'}" Grid.Row="1" Grid.Column="0" Padding="10"/>
+
+                                                        <Button Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left">
+                                                            try
+                                                        </Button>
+                                                        <TextBlock Text="{Binding Response, StringFormat='Response: {0}'}"  Grid.Row="1" Grid.Column="1" Padding="10"/>
+                                                        
+
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Right" >Probe Enviorment</Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
+                        <Button VerticalAlignment="Bottom" Command="{Binding ExecuteProbe}" HorizontalAlignment="Left">Probe service</Button>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" HorizontalAlignment="Right" Margin="10,2,10,10">Probe all services</Button>
+
+    </Grid>
+</Window>

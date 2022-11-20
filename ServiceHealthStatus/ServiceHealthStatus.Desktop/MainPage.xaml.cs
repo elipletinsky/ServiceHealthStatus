@@ -1,24 +1,27 @@
-﻿namespace ServiceHealthStatus.Desktop
+﻿using ServiceHealthStatus.ViewModel;
+
+namespace ServiceHealthStatus.Desktop
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage
     {
+        private readonly MainViewModel _vm;
         int count = 0;
+        
 
-        public MainPage()
+        public MainPage(MainViewModel vm)
         {
+            _vm = vm;
+            BindingContext = _vm;       
             InitializeComponent();
+            Loaded += MainPage_Loaded;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void MainPage_Loaded(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            _vm.ModelFilePath = @"j:\temp\CatalogServiceModel1.json";
+            await _vm.Populate();
         }
+
+       
     }
 }
