@@ -7,7 +7,7 @@ using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public class MainViewModel: BaseViewModel<IEnumerable<Service>, Service, ServiceViewModel>
+    public class MainViewModel: BaseViewModel<ServiceCollection, Service, ServiceViewModel>
     {
         public string ModelFilePath { get; set; }
         public MainViewModel(IServiceProvider services) 

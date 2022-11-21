@@ -20,33 +20,44 @@
                                             <ColumnDefinition  Width="4*"/>
                                             <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
-                                        <ListBox ItemsSource="{Binding Children}" ScrollViewer.VerticalScrollBarVisibility="Visible" >
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid Background="AliceBlue">
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition/>
-                                                            <RowDefinition/>
-                                                        </Grid.RowDefinitions>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition/>
-                                                            <ColumnDefinition/>
-                                                            <ColumnDefinition/>
-                                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <ItemsControl ItemsSource="{Binding Children}"  HorizontalContentAlignment="Stretch">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Background="AliceBlue">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                        <TextBlock Text="{Binding Model.Name, StringFormat='Name: {0}'}"  Grid.Row="0" Grid.Column="0" Padding="10"/>
-                                                        <TextBlock Text="{Binding Model.Url, StringFormat='URL: {0}'}" Grid.Row="1" Grid.Column="0" Padding="10"/>
+                                                            <TextBlock Text="{Binding Model.Name, StringFormat='Name: {0}'}"  Grid.Row="0" Grid.Column="0" Padding="10"/>
+                                                            <TextBlock Text="{Binding Model.Url, StringFormat='URL: {0}'}" Grid.Row="1" Grid.Column="0" Padding="10"/>
 
-                                                        <Button Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left">
-                                                            try
-                                                        </Button>
-                                                        <TextBlock Text="{Binding Response, StringFormat='Response: {0}'}"  Grid.Row="1" Grid.Column="1" Padding="10"/>
+                                                            <Button Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left">
+                                                                try
+                                                            </Button>
+                                                            <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" IsIndeterminate="True" Visibility="Collapsed"
+                                                                         Grid.Row="0" Grid.Column="2" Padding="10" Height="15" VerticalAlignment="Center"/>
+                                                            <TextBlock Text="{Binding Response, StringFormat='Response: {0}'}"  
+                                                                       Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Padding="10"/>
                                                         
-
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
+                                                        </Grid>
+                                                        <DataTemplate.Triggers>
+                                                            <DataTrigger Binding="{Binding InProgress}" Value="True">
+                                                                <Setter TargetName="pbStatus" Property="Visibility" Value="Visible"/>
+                                                                <Setter TargetName="pbStatus" Property="IsIndeterminate" Value="True"/>
+                                                            </DataTrigger>
+                                                        </DataTemplate.Triggers>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            
+                                        </ScrollViewer>
                                         <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Right" >Probe Enviorment</Button>
                                     </Grid>
                                 </DataTemplate>
