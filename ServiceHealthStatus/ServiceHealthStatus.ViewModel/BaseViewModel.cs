@@ -29,7 +29,7 @@ namespace ServiceHealthStatus.ViewModel
         
     }
 
-    public abstract class BaseViewModel<TModel, TChildModel, TChildViewModel>  :  IViewModel<TModel>, INotifyPropertyChanged, IResultPatternHolder
+    public abstract class BaseViewModel<TModel, TChildModel, TChildViewModel>  :  IViewModel<TModel>, INotifyPropertyChanged
         where TChildViewModel : IViewModel<TChildModel>
         where TModel : IResultPatternHolder
     {

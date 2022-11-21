@@ -40,7 +40,6 @@ namespace ServiceHealthStatus.ViewModel
         
         private string BuildResultPatern(string pattern, string input)
         {
-            Regex regex = new Regex("buildNumber\":\"(.*)\",");
             Regex regex1 = new Regex(ResultPattern);
             Match match = regex1.Match(input);
             

@@ -8,6 +8,6 @@ namespace ServiceHealthStatus.ViewModel.Model
 {
     public class ServiceCollection : ServiceItemBase
     {
-        public IEnumerable<Service> SServices { get; set; }
+        public IEnumerable<Service> Services { get; set; }
     }
 }
