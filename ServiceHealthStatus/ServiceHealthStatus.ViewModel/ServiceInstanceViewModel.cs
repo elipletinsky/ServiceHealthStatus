@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceHealthStatus.ViewModel.Model;
+using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceHealthStatus.ViewModel
 {
@@ -32,8 +34,16 @@ namespace ServiceHealthStatus.ViewModel
         protected override async Task DoExecuteProbe()
         {
             var result = await _probeService.Probe(Model.Url);
-            Response = result.body;
+            Response = BuildResultPatern("", result.body);
             Status = ((int)result.status >= 200) && ((int)result.status <= 299);
+        }
+        
+        private string BuildResultPatern(string pattern, string input)
+        {
+            Regex regex1 = new Regex(ResultPattern);
+            Match match = regex1.Match(input);
+            
+            return match.Groups[1].Value;
         }
 
         public Task Populate()

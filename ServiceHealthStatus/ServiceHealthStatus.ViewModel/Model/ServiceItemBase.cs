@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ServiceHealthStatus.ViewModel.Model
 
 {
-    public class ServiceItemBase
+    public class ServiceItemBase : IResultPatternHolder
     {
         public string ResultPattern { get; set; }
         public string Name { get; set; }
