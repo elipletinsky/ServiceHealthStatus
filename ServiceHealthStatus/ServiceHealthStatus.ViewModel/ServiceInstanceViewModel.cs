@@ -34,7 +34,15 @@ namespace ServiceHealthStatus.ViewModel
         protected override async Task DoExecuteProbe()
         {
             var result = await _probeService.Probe(Model.Url);
-            Response = BuildResultPatern("", result.body);
+            if(result.body == string.Empty)
+            {
+                Response = "Failed";
+            }
+            else
+            {
+                Response = BuildResultPatern("", result.body);
+            }
+            
             Status = ((int)result.status >= 200) && ((int)result.status <= 299);
         }
         

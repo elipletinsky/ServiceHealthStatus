@@ -20,20 +20,25 @@ namespace ServiceHealthStatus.ViewModel
         public string ResultPattern => throw new NotImplementedException();
 
         IResultPatternHolder IViewModel<object>.Parent { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Task Populate()
         {
             throw new NotImplementedException();
         }
         public Task PerfromExecuteProbe() => throw new NotImplementedException();
-        
+
+        public void OnChildStatusChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public abstract class BaseViewModel<TModel, TChildModel, TChildViewModel>  :  IViewModel<TModel>, INotifyPropertyChanged
         where TChildViewModel : IViewModel<TChildModel>
-        where TModel : IResultPatternHolder
+        where TModel : IResultPatternHolderModel
     {
-        private bool _status;
+        private bool _status = true;
         private bool _inProgress;
         public TModel Model { get; set; }
         public bool Status {
@@ -41,7 +46,9 @@ namespace ServiceHealthStatus.ViewModel
             set
             {
                 _status = value;
+                
                 OnPropertyChanged();
+                Parent?.OnChildStatusChanged();
             }
         }
         public bool InProgress {
@@ -70,6 +77,18 @@ namespace ServiceHealthStatus.ViewModel
             
         }
 
+        public void OnChildStatusChanged() 
+        {  
+            foreach(var child in Children)
+            {
+                if(!child.Status)
+                {
+                    Status = false;
+                    break;
+                }
+            }
+        }
+
         async Task IViewModel<TModel>.PerfromExecuteProbe()
         {
             try
@@ -87,7 +106,7 @@ namespace ServiceHealthStatus.ViewModel
         {
             foreach (var child in Children)
             {
-                await child.PerfromExecuteProbe(); //ExecuteProbe.Execute(this);
+                await child.PerfromExecuteProbe();
             }
         }
 

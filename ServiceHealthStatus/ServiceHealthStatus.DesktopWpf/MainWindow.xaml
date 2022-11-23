@@ -8,11 +8,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" Grid.Column="1" Background="Azure">
+        <TabControl ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" Grid.Column="1" Background="Azure">
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <Grid>
-                        <TabControl Margin="10"  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" TabStripPlacement="Left">
+                        <TabControl Margin="10"  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" TabStripPlacement="Left" >
                             <TabControl.ContentTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -45,7 +45,7 @@
                                                                          Grid.Row="0" Grid.Column="2" Padding="10" Height="15" VerticalAlignment="Center"/>
                                                             <TextBlock Text="{Binding Response, StringFormat='Response: {0}'}"  
                                                                        Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Padding="10"/>
-                                                        
+
                                                         </Grid>
                                                         <DataTemplate.Triggers>
                                                             <DataTrigger Binding="{Binding InProgress}" Value="True">
@@ -56,10 +56,11 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
-                                            
+
                                         </ScrollViewer>
                                         <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Right" >Probe Enviorment</Button>
                                     </Grid>
+                                    
                                 </DataTemplate>
                             </TabControl.ContentTemplate>
                         </TabControl>
