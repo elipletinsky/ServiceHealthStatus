@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using ServiceHealthStatus.ViewModel.Model;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -22,6 +23,18 @@ namespace ServiceHealthStatus.ViewModel
             } 
         }
 
+        private string _watch;
+
+        public string Watch
+        {
+            get => _watch;
+            set
+            {
+                _watch = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly IStatusProbeService _probeService;
         private string _response;
 
@@ -33,17 +46,28 @@ namespace ServiceHealthStatus.ViewModel
 
         protected override async Task DoExecuteProbe()
         {
+            var watch = new Stopwatch();
+            watch.Start();
             var result = await _probeService.Probe(Model.Url);
-            if(result.body == string.Empty)
+            watch.Stop();
+            Watch = watch.Elapsed.ToString(@"mm\:ss\.fff") + " ms";
+            if (result.body == string.Empty)
             {
-                Response = "Failed";
+                Response = $"Failed - Status {(int)result.status}";
             }
             else
             {
                 Response = BuildResultPatern("", result.body);
             }
             
-            Status = ((int)result.status >= 200) && ((int)result.status <= 299);
+            if(((int)result.status >= 200) && ((int)result.status <= 299))
+            {
+                Status = Status.Success;
+            }
+            else
+            {
+                Status = Status.Failure;
+            }
         }
         
         private string BuildResultPatern(string pattern, string input)
