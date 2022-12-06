@@ -41,17 +41,6 @@ namespace ServiceHealthStatus.ViewModel
         
         private bool _inProgress;
         public TModel Model { get; set; }
-        //private bool? _status;
-        //public bool? Status {
-        //    get => _status;
-        //    set
-        //    {
-        //        _status = value;
-                
-        //        OnPropertyChanged();
-        //        Parent?.OnChildStatusChanged();
-        //    }
-        //}
 
         private Status _status;
 
@@ -98,9 +87,6 @@ namespace ServiceHealthStatus.ViewModel
             int successfulChildrenCounter = 0;
             foreach(var child in Children)
             {
-               // if (child.Status == Status.Unprobed) return;
-
-
                 if (child.Status == Status.InProgress)
                 {
                     tempStatus = Status.InProgress;
