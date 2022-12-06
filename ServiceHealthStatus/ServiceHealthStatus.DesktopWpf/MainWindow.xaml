@@ -7,68 +7,242 @@
         xmlns:viewmodel="clr-namespace:ServiceHealthStatus.ViewModel;assembly=ServiceHealthStatus.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="PlainButton" TargetType="Button">
+            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Background="#EFEFEF">
+              <ContentPresenter Margin="4"/>
+            </Border>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="Service">
+        <Grid Width="15" Height="15">
+                <Path Margin="10" Data="M13,28.000001L13,29.000001 13,30.000001 19.001,30.000001 19.000505,29.009559 19.000023,29.000012 19.000495,28.990651 19,28.000001z M15.809999,2C12.914,2,10.28,3.703001,9.099,6.3400002L8.849,6.8959999 8.2389994,6.9300003C4.7409992,7.1149998 2,9.9810009 2,13.453001 2,17.063001 4.9579992,20.000001 8.5949993,20.000001L24.924,20.000001C27.723,20.000001 30,17.740001 30,14.962001 30,12.185 27.723,9.9250011 24.924,9.9250011L23.948999,9.9250011 23.906,8.9700012C23.729,5.0620003,20.506,2,16.57,2z M15.809999,0L16.57,0C21.272,0 25.174,3.4390011 25.82,7.9800014 29.299999,8.4200001 32,11.384001 32,14.962001 32,18.843 28.825999,22 24.924,22L17.000038,22 17.000038,26.000001 19,26.000001C20.103,26.000001,21,26.897001,21,28.000001L31.000023,28.000012C31.552025,28.000011 32.000023,28.446972 32.000023,29.000012 32.000023,29.55299 31.552025,30.000011 31.000023,30.000012L21,30.000012 20.997393,30.102783C20.943736,31.158187,20.068531,32.000001,19,32.000001L13,32.000001C11.896999,32.000001,11,31.103001,11,30.000001L1,30.000001C0.44799995,30.000001 0,29.553001 0,29.000001 0,28.447001 0.44799995,28.000001 1,28.000001L11,28.000001C11,26.897001,11.896999,26.000001,13,26.000001L15.000038,26.000001 15.000038,22 8.5949993,22C3.8549995,22 0,18.166 0,13.453001 0,9.118 3.2639999,5.507 7.5349998,4.9840012 9.1429996,1.9379997 12.328,0 15.809999,0z" 
+                  Stretch="Uniform" Fill="Blue" Width="26" Height="26" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Environment">
+            <Grid Width="15" Height="15">
+                <Path Margin="10" Data="M2.9719849,19.926018C4.6129761,19.926018 5.9429932,21.258017 5.9429932,22.898001 5.9429932,24.538992 4.6129761,25.869007 2.9719849,25.869007 1.3300171,25.869007 0,24.538992 0,22.898001 0,21.258017 1.3300171,19.926018 2.9719849,19.926018z M27.286011,19.78701C29.890015,19.78701 32,21.896017 32,24.49999 32,27.103992 29.890015,29.213001 27.286011,29.213001 24.682983,29.213001 22.572998,27.103992 22.572998,24.49999 22.572998,21.896017 24.682983,19.78701 27.286011,19.78701z M8.5289917,19.236992L8.9539795,19.956993 6.6109619,21.334005 6.1870117,20.612999z M18.159973,19.008995L22.322998,21.383017 21.542969,22.752005 17.382019,20.379021z M13.28302,13.305994C15.539001,13.305994 17.369019,15.137017 17.369019,17.395012 17.369019,19.650017 15.539001,21.480001 13.28302,21.480001 11.026978,21.480001 9.1959839,19.650017 9.1959839,17.395012 9.1959839,15.137017 11.026978,13.305994 13.28302,13.305994z M12.562988,9.1030235L14.002991,9.1030235 14.002991,12.656001 12.562988,12.656001z M13.28302,0C15.539001,3.6856363E-08 17.369019,1.8300163 17.369019,4.0880112 17.369019,6.3440222 15.539001,8.1740083 13.28302,8.1740083 11.026978,8.1740083 9.1959839,6.3440222 9.1959839,4.0880112 9.1959839,1.8300163 11.026978,3.6856363E-08 13.28302,0z" 
+                  Stretch="Uniform" Fill="Blue" Width="26" Height="26" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Instance">
+            <Grid Width="15" Height="15">
+                <Path Margin="10" Data="M11.332992,21L13.665984,21 13.665984,23 11.332992,23z M7,21L9,21 9,23 7,23z M18,18.000008L18,26.000008 30,26.000008 30,18.000008z M7,17.401011L9,17.401011 9,19.201011 7,19.201011z M23,16L25,16 32,16.000008 32,28.000008 25,28.000008 25,30 27,30 27,32 21.011014,32 21.011014,30 23,30 23,28.000008 16,28.000008 16,23 16,21 16,16.000008z M23,12.400011L25,12.400011 25,14.201011 23,14.201011z M23,8.8000121L25,8.8000121 25,10.600012 23,10.600012z M23,5L25,5 25,7 23,7z M18.334016,5L20.667008,5 20.667008,7 18.334016,7z M2,2L2,10 14,10 14,2z M0,0L16,0 16,5 16,7 16,12 9,12 9,13.800012 9,14 11,14 11,16 5.011014,16 5.011014,14 7,14 7,13.800012 7,12 0,12z" 
+                  Stretch="Uniform" Fill="Blue" Width="26" Height="26" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UnprobedStatus">
+            <Grid Width="20" Height="20">
+                <Path  Data="M14.299995,21.399963L14.299995,24.399963 17.699997,24.399963 17.699997,21.399963z M14.799995,6.6000061L14.299995,17.5 17.699997,17.5 17.199997,6.6000061z M16,0C24.799995,0 32,7.1999817 32,16 32,24.799988 24.799995,32 16,32 7.1999969,32 0,24.799988 0,16 0,7.1999817 7.1999969,0 16,0z" 
+                  Stretch="Uniform" Fill="Orange" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SuccessStatus">
+            <Grid Width="20" Height="20">
+                <Path Data="M22.785004,8.4599915L13.740021,17.51001 9.2100067,12.980011 6.2000122,16 13.740021,23.545013 25.804993,11.480011z M16,0C24.834991,0 32,7.1700134 32,16 32,24.834991 24.834991,32 16,32 7.1699982,32 0,24.834991 0,16 0,7.1700134 7.1699982,0 16,0z" 
+                  Stretch="Uniform" Fill="Green" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FailureStatus">
+            <Grid Width="20" Height="20">
+                <Path Data="M10.661012,7.5689991L7.5990001,10.650999 12.939089,15.997999 7.5990001,21.336999 10.661012,24.405 16.007082,19.065 21.369997,24.405 24.430058,21.336999 24.429081,21.336 19.088991,15.998999 24.429081,10.662001 21.345095,7.5819996 16.007082,12.919001z M15.997072,0C24.828983,0 31.994999,7.1770013 31.994999,15.999998 31.994999,24.826997 24.828007,31.999999 15.997072,31.999999 7.1569835,31.999999 1.5270052E-07,24.826997 0,15.999998 1.5270052E-07,7.1799997 7.1569835,0 15.997072,0z" 
+                  Stretch="Uniform" Fill="Red" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="InProgressStatus" >
+            <Grid Width="20" Height="20">
+                 <Path x:Name="icon"  Data="M22.400024,16.400002C22.400024,18.300003 21.700012,19.900002 20.400024,21.200005 19.200012,22.400002 17.5,23.200005 15.600037,23.200005 13.799988,23.200005 12.100037,22.5 10.900024,21.300003L13.299988,18.900002 6.7000122,18.900002 6.7000122,25.600006 8.9000244,23.400002C10.600037,25.100006 13,26.200005 15.700012,26.200005 21,26.200005 25.299988,21.900002 25.299988,16.600006L22.400024,16.600006z M16.299988,6C11,6,6.7000122,10.300003,6.7000122,15.600006L9.6000366,15.600006C9.6000366,13.700005 10.400024,12.100006 11.600037,10.800003 12.799988,9.6000061 14.5,8.8000031 16.400024,8.8000031 18.299988,8.8000031 20,9.6000061 21.200012,10.800003L18.900024,13.100006 25.400024,13.100006 25.400024,6.7000046 23.200012,8.9000015C21.400024,7.1000061,19,6,16.299988,6z M16,0C24.799988,0 32,7.2000046 32,16 32,24.800003 24.799988,32 16,32 7.2000122,32 0,24.800003 0,16 0,7.2000046 7.2000122,0 16,0z" 
+                       Stretch="Uniform" Fill="Blue"
+                      RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <RotateTransform x:Name="rotation" Angle="0" />
+                    </Path.RenderTransform>
+                </Path>               
+            </Grid>
+
+            <DataTemplate.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="Angle"
+                                    Storyboard.TargetName="rotation"
+                                        From="0"
+                                        To="360"
+                                        Duration="0:0:1"
+                                        RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                </DataTemplate.Triggers>
+        </DataTemplate>
+            
+        <DataTemplate x:Key="StatusButtonTemplate">
+            <Grid Width="20" Height="20" >
+                <ContentControl Name="unprobed" ContentTemplate="{StaticResource UnprobedStatus}" Visibility="Collapsed"/>
+                <ContentControl Name="inprogress" ContentTemplate="{StaticResource InProgressStatus}" Visibility="Collapsed"/>
+                <ContentControl Name="success" ContentTemplate="{StaticResource SuccessStatus}" Visibility="Collapsed"/>
+                <ContentControl Name="failure" ContentTemplate="{StaticResource FailureStatus}" Visibility="Collapsed"/>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="Unprobed">
+                    <Setter TargetName="unprobed" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="InProgress">
+                    <Setter TargetName="inprogress" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Success">
+                    <Setter TargetName="success" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Failure">
+                    <Setter TargetName="failure" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type viewmodel:ServiceViewModel}" ItemsSource="{Binding Children}">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Button  Command="{Binding ExecuteProbe}" Template="{StaticResource PlainButton}"  VerticalAlignment="Center">
+                        <ContentControl ContentTemplate="{StaticResource StatusButtonTemplate}" Content="{Binding}"/>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="1" >
+                    <Path Margin="10" Data="M13,28.000001L13,29.000001 13,30.000001 19.001,30.000001 19.000505,29.009559 19.000023,29.000012 19.000495,28.990651 19,28.000001z M15.809999,2C12.914,2,10.28,3.703001,9.099,6.3400002L8.849,6.8959999 8.2389994,6.9300003C4.7409992,7.1149998 2,9.9810009 2,13.453001 2,17.063001 4.9579992,20.000001 8.5949993,20.000001L24.924,20.000001C27.723,20.000001 30,17.740001 30,14.962001 30,12.185 27.723,9.9250011 24.924,9.9250011L23.948999,9.9250011 23.906,8.9700012C23.729,5.0620003,20.506,2,16.57,2z M15.809999,0L16.57,0C21.272,0 25.174,3.4390011 25.82,7.9800014 29.299999,8.4200001 32,11.384001 32,14.962001 32,18.843 28.825999,22 24.924,22L17.000038,22 17.000038,26.000001 19,26.000001C20.103,26.000001,21,26.897001,21,28.000001L31.000023,28.000012C31.552025,28.000011 32.000023,28.446972 32.000023,29.000012 32.000023,29.55299 31.552025,30.000011 31.000023,30.000012L21,30.000012 20.997393,30.102783C20.943736,31.158187,20.068531,32.000001,19,32.000001L13,32.000001C11.896999,32.000001,11,31.103001,11,30.000001L1,30.000001C0.44799995,30.000001 0,29.553001 0,29.000001 0,28.447001 0.44799995,28.000001 1,28.000001L11,28.000001C11,26.897001,11.896999,26.000001,13,26.000001L15.000038,26.000001 15.000038,22 8.5949993,22C3.8549995,22 0,18.166 0,13.453001 0,9.118 3.2639999,5.507 7.5349998,4.9840012 9.1429996,1.9379997 12.328,0 15.809999,0z" 
+                        Stretch="Uniform" Fill="Blue" Width="20" Height="20" />
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Model.Name}" Grid.Row="0" Grid.Column="0" FontSize="20"/>
+                    <TextBlock Text="Environments: " Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="{Binding Model.Environments.Length}" Grid.Row="1" Grid.Column="1"/>
+
+                </Grid>
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type viewmodel:EnvironmentViewModel}" ItemsSource="{Binding Children}">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Button  Command="{Binding ExecuteProbe}" Template="{StaticResource PlainButton}"  VerticalAlignment="Center">
+                        <ContentControl ContentTemplate="{StaticResource StatusButtonTemplate}" Content="{Binding}"/>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="1" >
+                    <Path Margin="10" Data="M2.9719849,19.926018C4.6129761,19.926018 5.9429932,21.258017 5.9429932,22.898001 5.9429932,24.538992 4.6129761,25.869007 2.9719849,25.869007 1.3300171,25.869007 0,24.538992 0,22.898001 0,21.258017 1.3300171,19.926018 2.9719849,19.926018z M27.286011,19.78701C29.890015,19.78701 32,21.896017 32,24.49999 32,27.103992 29.890015,29.213001 27.286011,29.213001 24.682983,29.213001 22.572998,27.103992 22.572998,24.49999 22.572998,21.896017 24.682983,19.78701 27.286011,19.78701z M8.5289917,19.236992L8.9539795,19.956993 6.6109619,21.334005 6.1870117,20.612999z M18.159973,19.008995L22.322998,21.383017 21.542969,22.752005 17.382019,20.379021z M13.28302,13.305994C15.539001,13.305994 17.369019,15.137017 17.369019,17.395012 17.369019,19.650017 15.539001,21.480001 13.28302,21.480001 11.026978,21.480001 9.1959839,19.650017 9.1959839,17.395012 9.1959839,15.137017 11.026978,13.305994 13.28302,13.305994z M12.562988,9.1030235L14.002991,9.1030235 14.002991,12.656001 12.562988,12.656001z M13.28302,0C15.539001,3.6856363E-08 17.369019,1.8300163 17.369019,4.0880112 17.369019,6.3440222 15.539001,8.1740083 13.28302,8.1740083 11.026978,8.1740083 9.1959839,6.3440222 9.1959839,4.0880112 9.1959839,1.8300163 11.026978,3.6856363E-08 13.28302,0z" 
+                            Stretch="Uniform" Fill="Blue" Width="20" Height="20" />
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Model.Name}" Grid.Row="0" Grid.Column="0" FontSize="17"/>
+                    <TextBlock Text="Instances: " Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="{Binding Model.Instances.Length}" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type viewmodel:ServiceInstanceViewModel}" ItemsSource="{Binding Children}">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" >
+                    <Button Command="{Binding ExecuteProbe}"  Template="{StaticResource PlainButton}"  VerticalAlignment="Center">
+                        <ContentControl  ContentTemplate="{StaticResource StatusButtonTemplate}" Content="{Binding}"/>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="1" >
+                    <Path Margin="10" Data="M11.332992,21L13.665984,21 13.665984,23 11.332992,23z M7,21L9,21 9,23 7,23z M18,18.000008L18,26.000008 30,26.000008 30,18.000008z M7,17.401011L9,17.401011 9,19.201011 7,19.201011z M23,16L25,16 32,16.000008 32,28.000008 25,28.000008 25,30 27,30 27,32 21.011014,32 21.011014,30 23,30 23,28.000008 16,28.000008 16,23 16,21 16,16.000008z M23,12.400011L25,12.400011 25,14.201011 23,14.201011z M23,8.8000121L25,8.8000121 25,10.600012 23,10.600012z M23,5L25,5 25,7 23,7z M18.334016,5L20.667008,5 20.667008,7 18.334016,7z M2,2L2,10 14,10 14,2z M0,0L16,0 16,5 16,7 16,12 9,12 9,13.800012 9,14 11,14 11,16 5.011014,16 5.011014,14 7,14 7,13.800012 7,12 0,12z" 
+                        Stretch="Uniform" Fill="Blue" Width="20" Height="20" />
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Model.Name}" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                    <TextBlock Text="{Binding Response}" Grid.Row="0" Grid.Column="1" Margin="3" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Watch}" Grid.Row="0" Grid.Column="3" Margin="3" />
+                    <TextBlock Text="{Binding Model.Url}" Grid.Row="1" Grid.ColumnSpan="4"/>
+                </Grid>
+            </Grid>
+        </HierarchicalDataTemplate>
+
+
+    </Window.Resources>
+
+    
     <Grid>
-        <TabControl  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" Grid.Column="1" Background="Azure">
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TabControl Margin="10"  ItemsSource="{Binding Children}" DisplayMemberPath="Model.Name" TabStripPlacement="Left">
-                            <TabControl.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition  Width="4*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <ItemsControl ItemsSource="{Binding Children}"  HorizontalContentAlignment="Stretch">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid Background="AliceBlue">
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition/>
-                                                                <RowDefinition/>
-                                                            </Grid.RowDefinitions>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Text="{Binding Model.Name, StringFormat='Name: {0}'}"  Grid.Row="0" Grid.Column="0" Padding="10"/>
-                                                            <TextBlock Text="{Binding Model.Url, StringFormat='URL: {0}'}" Grid.Row="1" Grid.Column="0" Padding="10"/>
-
-                                                            <Button Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left">
-                                                                try
-                                                            </Button>
-                                                            <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" IsIndeterminate="True" Visibility="Collapsed"
-                                                                         Grid.Row="0" Grid.Column="2" Padding="10" Height="15" VerticalAlignment="Center"/>
-                                                            <TextBlock Text="{Binding Response, StringFormat='Response: {0}'}"  
-                                                                       Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Padding="10"/>
-                                                        
-                                                        </Grid>
-                                                        <DataTemplate.Triggers>
-                                                            <DataTrigger Binding="{Binding InProgress}" Value="True">
-                                                                <Setter TargetName="pbStatus" Property="Visibility" Value="Visible"/>
-                                                                <Setter TargetName="pbStatus" Property="IsIndeterminate" Value="True"/>
-                                                            </DataTrigger>
-                                                        </DataTemplate.Triggers>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                            
-                                        </ScrollViewer>
-                                        <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Right" >Probe Enviorment</Button>
-                                    </Grid>
-                                </DataTemplate>
-                            </TabControl.ContentTemplate>
-                        </TabControl>
-                        <Button VerticalAlignment="Bottom" Command="{Binding ExecuteProbe}" HorizontalAlignment="Left">Probe service</Button>
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
-        <Button VerticalAlignment="Top" Command="{Binding ExecuteProbe}" HorizontalAlignment="Right" Margin="10,2,10,10">Probe all services</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid DataContext="{Binding}" Grid.Row="0"  Background="LightBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button  Margin="15,0,0,0" Command="{Binding ExecuteProbe}" Template="{StaticResource PlainButton}"  VerticalAlignment="Center" Grid.Column="0">
+                <ContentControl ContentTemplate="{StaticResource StatusButtonTemplate}" Content="{Binding}"/>
+            </Button>
+            <TextBlock Text="Service Health Status" Grid.Column="1" FontSize="25" Padding="10"/>
+        </Grid>
+        <TreeView ItemsSource="{Binding Children}" Grid.Row="1" >
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                    <Setter Property="Focusable" Value="False" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
 
     </Grid>
 </Window>

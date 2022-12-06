@@ -12,9 +12,12 @@ namespace ServiceHealthStatus.ViewModel
         Task Populate();
         Task PerfromExecuteProbe();
         IResultPatternHolder Parent { get; set; }
+        public Status Status { get; }
     }
+
     public interface IResultPatternHolder
     {
         string ResultPattern { get;}
+        void OnChildStatusChanged();
     }
 }

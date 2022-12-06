@@ -20,30 +20,41 @@ namespace ServiceHealthStatus.ViewModel
         public string ResultPattern => throw new NotImplementedException();
 
         IResultPatternHolder IViewModel<object>.Parent { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Status Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Task Populate()
         {
             throw new NotImplementedException();
         }
         public Task PerfromExecuteProbe() => throw new NotImplementedException();
-        
+
+        public void OnChildStatusChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public abstract class BaseViewModel<TModel, TChildModel, TChildViewModel>  :  IViewModel<TModel>, INotifyPropertyChanged
         where TChildViewModel : IViewModel<TChildModel>
-        where TModel : IResultPatternHolder
+        where TModel : IResultPatternHolderModel
     {
-        private bool _status;
+        
         private bool _inProgress;
         public TModel Model { get; set; }
-        public bool Status {
-            get => _status;
+
+        private Status _status;
+
+        public Status Status 
+        { 
+            get => _status; 
             set
             {
                 _status = value;
                 OnPropertyChanged();
+                Parent?.OnChildStatusChanged();
             }
         }
+
         public bool InProgress {
             get => _inProgress;
             set
@@ -70,13 +81,44 @@ namespace ServiceHealthStatus.ViewModel
             
         }
 
+        public void OnChildStatusChanged() 
+        {
+            Status tempStatus = Status.Unprobed;
+            int successfulChildrenCounter = 0;
+            foreach(var child in Children)
+            {
+                if (child.Status == Status.InProgress)
+                {
+                    tempStatus = Status.InProgress;
+                    break;
+                }
+
+                if (child.Status == Status.Failure)
+                {
+                    tempStatus = Status.Failure;
+                    break;
+                }
+                if (child.Status == Status.Success)
+                {
+                    successfulChildrenCounter++;
+                }
+
+            }
+            if(successfulChildrenCounter == Children.Count)
+            {
+                tempStatus = Status.Success;
+            }
+            Status = tempStatus;
+        }
+
         async Task IViewModel<TModel>.PerfromExecuteProbe()
         {
             try
             {
+                Status= Status.InProgress;
                 InProgress = true;
                 await DoExecuteProbe();
-            }
+            } 
             finally
             {
                 InProgress= false;
@@ -87,7 +129,7 @@ namespace ServiceHealthStatus.ViewModel
         {
             foreach (var child in Children)
             {
-                await child.PerfromExecuteProbe(); //ExecuteProbe.Execute(this);
+                await child.PerfromExecuteProbe();
             }
         }
 
