@@ -9,6 +9,6 @@ namespace ServiceHealthStatus.ViewModel
 {
     public  interface IStatusProbeService
     {
-        public Task<(string body, HttpStatusCode status)> Probe(string url);
+        Task<(string body, HttpStatusCode status)> Probe(string url);
     }
 }

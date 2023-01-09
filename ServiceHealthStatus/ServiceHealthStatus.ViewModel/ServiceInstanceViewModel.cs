@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using ServiceHealthStatus.ViewModel.Model;
 using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceHealthStatus.ViewModel
 {
