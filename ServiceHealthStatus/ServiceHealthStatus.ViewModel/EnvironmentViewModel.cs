@@ -1,4 +1,7 @@
-﻿using ServiceHealthStatus.ViewModel.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {

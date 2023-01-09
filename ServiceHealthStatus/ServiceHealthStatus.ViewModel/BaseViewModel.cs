@@ -152,7 +152,7 @@ namespace ServiceHealthStatus.ViewModel
         }
         
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {

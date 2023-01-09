@@ -20,14 +20,14 @@ namespace ServiceHealthStatus.ViewModel
         }
 
 
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
             return _canExecute(parameter);
         }
 
-        public void Execute(object? parameter)
+        public void Execute(object parameter)
         {
             _execute(parameter);
         }

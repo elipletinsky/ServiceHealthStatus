@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -14,8 +15,11 @@ namespace ServiceHealthStatus.ViewModel.Model
         {
             try
             {
-                var json = await File.ReadAllTextAsync(fileName);
-                return JsonSerializer.Deserialize<Service[]>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                using (var reader = File.OpenText(fileName))
+                {
+                    var json = await reader.ReadToEndAsync();
+                    return JsonSerializer.Deserialize<Service[]>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
             }
             catch (Exception e)
             {
