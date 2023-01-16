@@ -1,0 +1,99 @@
+[
+    { 
+        "name": "Ingest",
+        "resultPattern": "",
+        "environments": [
+          {
+            "name": "DF",
+            "resultPattern": "",
+            "instances": [
+              {
+                "name": "EUS",
+                "url": "https://mp-ingest-dev-df-eus.azurewebsites.net/"
+              },
+              {
+                "name": "WUS",
+                "url": "https://mp-ingest-dev-df-wus.azurewebsites.net/"
+              },
+              {
+                "name": "EUS",
+                "url": "https://mp-ingest-dev-df-eus.azurewebsites.net/"
+              },
+              {
+                "name": "WUS",
+                "url": "https://mp-ingest-dev-df-wus.azurewebsites.net/"
+              },
+              {
+                "name": "EUS",
+                "url": "https://mp-ingest-dev-df-eus.azurewebsites.net/"
+              },
+              {
+                "name": "WUS",
+                "url": "https://mp-ingest-dev-df-wus.azurewebsites.net/"
+              },
+              {
+                "name": "EUS",
+                "url": "https://mp-ingest-dev-df-eus.azurewebsites.net/"
+              },
+              {
+                "name": "WUS",
+                "url": "https://mp-ingest-dev-df-wus.azurewebsites.net/"
+              },
+              {
+                "name": "EUS",
+                "url": "https://mp-ingest-dev-df-eus.azurewebsites.net/"
+              },
+              {
+                "name": "WUS",
+                "url": "https://mp-ingest-dev-df-wus.azurewebsites.net/"
+              }
+            ]
+          },
+            {
+                "name": "PROD",
+                "instances":[
+                    {
+                        "name": "EUS",
+                        "url": "https://mp-ingest-prod-pb-eus.azurewebsites.net/"
+                    },
+                    {
+                        "name": "WUS",
+                        "url": "https://mp-ingest-prod-pb-wuss.azurewebsites.net/"
+                    }
+                ]
+            }
+        ]
+    },
+    { 
+        "name": "Browse",
+        "resultPattern": "buildNumber\":\"(.*)\",",
+        "environments": [
+            {
+                "name": "DF",
+                "instances":[
+                    {
+                        "name": "EUS",
+                        "url": "https://mp-browse-dev-df-bl.azurewebsites.net/"
+                    },
+                    {
+                        "name": "WUS",
+                        "url": "https://mp-browse-dev-df-by.azurewebsites.net/"
+                    }
+                ]
+            },
+            {
+                "name": "PROD",
+                "instances":[
+                    {
+                        "name": "EUS",
+                        "url": "https://mp-browse-prod-pb-bl.azurewebsites.net/"
+                    },
+                    {
+                        "name": "WUS",
+                        "url": "https://mp-browse-prod-pb-by.azurewebsites.net/"
+                    }
+                ]
+            }
+        ]
+    }
+]

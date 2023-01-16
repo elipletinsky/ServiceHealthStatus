@@ -66,19 +66,19 @@ namespace ServiceHealthStatus.ViewModel
         public ObservableCollection<TChildViewModel> Children { get; } = new ObservableCollection<TChildViewModel>();
         private readonly IServiceProvider _services;
         public IResultPatternHolder Parent { get; set;}
-        public virtual string ResultPattern 
+        public virtual string ResultPattern
         {
-            get { 
-                if (string.IsNullOrWhiteSpace(Model.ResultPattern))
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Model?.ResultPattern))
                 {
-                    return Parent.ResultPattern;
-                    }
-                    else
-                    {
-                    return Model.ResultPattern;
-                    }
+                    return Parent?.ResultPattern;
                 }
-            
+                else
+                {
+                    return Model.ResultPattern;
+                }
+            }
         }
 
         public void OnChildStatusChanged() 
@@ -161,6 +161,7 @@ namespace ServiceHealthStatus.ViewModel
 
         public async Task Populate()
         {
+            Children.Clear();
             foreach (var childModel in await GetChildrenModels())
             {
                 var childVm = CreateChildViewModel(childModel);

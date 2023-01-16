@@ -24,10 +24,21 @@ namespace ServiceHealthStatus.ViewModel.Model
             catch (Exception e)
             {
 
-                throw;
+                throw e;
             }
         }
 
+        public static IEnumerable<Service> LoadFrom(string fileName)
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<Service[]>(fileName, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
 
         public Environment[] Environments { get; set; }
     }

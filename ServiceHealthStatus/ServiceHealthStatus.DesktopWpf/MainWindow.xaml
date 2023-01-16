@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceHealthStatus.DesktopWpf" 
-        xmlns:viewmodel="clr-namespace:ServiceHealthStatus.ViewModel;assembly=ServiceHealthStatus.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        xmlns:viewmodel="clr-namespace:ServiceHealthStatus.ViewModel;assembly=ServiceHealthStatus.ViewModel" 
+        xmlns:shared="clr-namespace:ServiceHealthStatus.DesktopWpf.View.Shared" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -83,28 +85,24 @@
                 </EventTrigger>
                 </DataTemplate.Triggers>
         </DataTemplate>
-            
+
+        <shared:VisibilityConverter x:Key="visibilityConverter"/>
+        <viewmodel:Status x:Key="Success">Success</viewmodel:Status>
+        <viewmodel:Status x:Key="Unprobed">Unprobed</viewmodel:Status>
+        <viewmodel:Status x:Key="InProgress">InProgress</viewmodel:Status>
+        <viewmodel:Status x:Key="Failure">Failure</viewmodel:Status>
+
         <DataTemplate x:Key="StatusButtonTemplate">
             <Grid Width="20" Height="20" >
-                <ContentControl Name="unprobed" ContentTemplate="{StaticResource UnprobedStatus}" Visibility="Collapsed"/>
-                <ContentControl Name="inprogress" ContentTemplate="{StaticResource InProgressStatus}" Visibility="Collapsed"/>
-                <ContentControl Name="success" ContentTemplate="{StaticResource SuccessStatus}" Visibility="Collapsed"/>
-                <ContentControl Name="failure" ContentTemplate="{StaticResource FailureStatus}" Visibility="Collapsed"/>
+                <ContentControl Name="unprobed" ContentTemplate="{StaticResource UnprobedStatus}" 
+                                Visibility="{Binding Status, Converter={StaticResource visibilityConverter}, ConverterParameter={StaticResource Unprobed}}"/>
+                <ContentControl Name="inprogress" ContentTemplate="{StaticResource InProgressStatus}" 
+                                Visibility="{Binding Status, Converter={StaticResource visibilityConverter}, ConverterParameter={StaticResource InProgress}}"/>
+                <ContentControl Name="success" ContentTemplate="{StaticResource SuccessStatus}" 
+                                Visibility="{Binding Status, Converter={StaticResource visibilityConverter}, ConverterParameter={StaticResource Success}}"/>
+                <ContentControl Name="failure" ContentTemplate="{StaticResource FailureStatus}" 
+                                Visibility="{Binding Status, Converter={StaticResource visibilityConverter}, ConverterParameter={StaticResource Failure}}"/>
             </Grid>
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Status}" Value="Unprobed">
-                    <Setter TargetName="unprobed" Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Status}" Value="InProgress">
-                    <Setter TargetName="inprogress" Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Status}" Value="Success">
-                    <Setter TargetName="success" Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Status}" Value="Failure">
-                    <Setter TargetName="failure" Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-            </DataTemplate.Triggers>
         </DataTemplate>
 
         <HierarchicalDataTemplate DataType="{x:Type viewmodel:ServiceViewModel}" ItemsSource="{Binding Children}">
@@ -178,7 +176,7 @@
             </Grid>
         </HierarchicalDataTemplate>
 
-        <HierarchicalDataTemplate DataType="{x:Type viewmodel:ServiceInstanceViewModel}" ItemsSource="{Binding Children}">
+        <HierarchicalDataTemplate DataType="{x:Type viewmodel:ServiceInstanceViewModel}" >
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -229,11 +227,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Button  Margin="15,0,0,0" Command="{Binding ExecuteProbe}" Template="{StaticResource PlainButton}"  VerticalAlignment="Center" Grid.Column="0">
                 <ContentControl ContentTemplate="{StaticResource StatusButtonTemplate}" Content="{Binding}"/>
             </Button>
             <TextBlock Text="Service Health Status" Grid.Column="1" FontSize="25" Padding="10"/>
+            <Button Grid.Column="2" Content="Choose Json" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
+
         </Grid>
         <TreeView ItemsSource="{Binding Children}" Grid.Row="1" >
             <TreeView.ItemContainerStyle>
