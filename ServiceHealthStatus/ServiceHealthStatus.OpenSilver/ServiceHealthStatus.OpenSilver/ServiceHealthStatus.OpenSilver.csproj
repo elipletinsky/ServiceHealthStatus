@@ -26,12 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="CatalogServiceModel1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\ServiceHealthStatus.ViewModel\ServiceHealthStatus.ViewModel.csproj" />
   </ItemGroup>
   
