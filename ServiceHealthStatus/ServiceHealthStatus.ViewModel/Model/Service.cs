@@ -28,11 +28,11 @@ namespace ServiceHealthStatus.ViewModel.Model
             }
         }
 
-        public static IEnumerable<Service> LoadFrom(string fileName)
+        public static IEnumerable<Service> LoadFrom(string fileContent)
         {
             try
             {
-                return JsonSerializer.Deserialize<Service[]>(fileName, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return JsonSerializer.Deserialize<Service[]>(fileContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
             catch(Exception e)
             {

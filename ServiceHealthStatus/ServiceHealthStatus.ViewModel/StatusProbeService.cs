@@ -52,6 +52,7 @@ namespace ServiceHealthStatus.ViewModel
             }
             catch (Exception e)
             {
+                _logger.LogError(e, "Failed to retrieve Json from Uri");
                 throw e;
             }
         }
