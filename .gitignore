@@ -8,7 +8,6 @@
 **/launchSettings.json
 *.csproj.user
 .vs
-**/wwwroot/test.json
 resources/
 
-/ServiceHealthStatus/ServiceHealthStatus.OpenSilver/ServiceHealthStatus.OpenSilver.Browser/wwwroot/test.json
+**/wwwroot/test.json
