@@ -8,3 +8,4 @@
 **/launchSettings.json
 *.csproj.user
 .vs
+resources/
