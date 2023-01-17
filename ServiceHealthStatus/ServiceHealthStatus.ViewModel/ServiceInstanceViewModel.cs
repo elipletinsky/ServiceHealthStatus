@@ -12,6 +12,7 @@ namespace ServiceHealthStatus.ViewModel
 {
     public class ServiceInstanceViewModel : BaseViewModel<ServiceInstance, object, DummyViewModel>
     {
+        private const int MaxBodyDisplayChars = 30;
         public string Response 
         { 
             get => _response; 
@@ -56,7 +57,7 @@ namespace ServiceHealthStatus.ViewModel
             }
             else
             {
-                Response = BuildResultPatern("", result.body);
+                Response = BuildResultPatern(result.body);
             }
             
             if(((int)result.status >= 200) && ((int)result.status <= 299))
@@ -69,20 +70,18 @@ namespace ServiceHealthStatus.ViewModel
             }
         }
         
-        private string BuildResultPatern(string pattern, string input)
+        private string BuildResultPatern(string input)
         {
+            if (string.IsNullOrEmpty(ResultPattern))
+            {
+                return input.Substring(0, MaxBodyDisplayChars) + "...";
+            }
+
             Regex regex1 = new Regex(ResultPattern);
             Match match = regex1.Match(input);
             
             return match.Groups[1].Value;
         }
-
-        public Task Populate()
-        {
-            return Task.CompletedTask;
-        }
-
-      
 
         protected override Task<IEnumerable<object>> GetChildrenModels()
         {

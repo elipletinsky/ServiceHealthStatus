@@ -8,3 +8,6 @@
 **/launchSettings.json
 *.csproj.user
 .vs
+resources/
+
+#**/wwwroot/test.json

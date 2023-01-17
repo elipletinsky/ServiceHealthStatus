@@ -11,10 +11,12 @@ namespace ServiceHealthStatus.ViewModel
     public class MainViewModel: BaseViewModel<ServiceCollection, Service, ServiceViewModel>
     {
         public string ModelFilePath { get; set; }
-        public MainViewModel(IServiceProvider services) 
+        public string ModelFileContent { get; set; }
+        private IStatusProbeService _probeService;
+        public MainViewModel(IServiceProvider services, IStatusProbeService probeService) 
             : base(services)
         {
-           
+            _probeService = probeService;
         }
 
         private ServiceViewModel _selectedService;
@@ -24,12 +26,25 @@ namespace ServiceHealthStatus.ViewModel
             set { _selectedService = value; OnPropertyChanged(nameof(SelectedService)); }
         }
 
-        protected override Task<IEnumerable<Service>> GetChildrenModels()
+        protected override async Task<IEnumerable<Service>> GetChildrenModels()
         {
-            if (string.IsNullOrEmpty(ModelFilePath)) throw new InvalidDataException($"Not initialized {nameof(ModelFilePath)}");
-            return Service.Load(ModelFilePath);
+            if (string.IsNullOrEmpty(ModelFilePath) && string.IsNullOrEmpty(ModelFileContent)) 
+                throw new InvalidDataException($"Not initialized {nameof(ModelFilePath)}" +
+                                               $"Not initialized {nameof(ModelFileContent)}");
+            
+            if (!string.IsNullOrEmpty(ModelFilePath) && string.IsNullOrEmpty(ModelFileContent))
+            {
+                if(Uri.IsWellFormedUriString(ModelFilePath, UriKind.Absolute))
+                {
+                    var json = await _probeService.GetJsonFromUri(ModelFilePath);
+                    return Service.LoadFrom(json);
+                }
+                return await Service.Load(ModelFilePath);
+            }
+            else
+            {
+                return Service.LoadFrom(ModelFileContent);
+            }
         }
-
-       
     }
 }
