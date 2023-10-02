@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33006.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.ViewModel", "ServiceHealthStatus.ViewModel\ServiceHealthStatus.ViewModel.csproj", "{FA10F804-039A-4CC8-8933-3145A8875C7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.Web", "ServiceHealthStatus.Web\ServiceHealthStatus.Web.csproj", "{D0D8DA2A-6023-4301-A903-174956BCED99}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.DesktopWpf", "ServiceHealthStatus.DesktopWpf\ServiceHealthStatus.DesktopWpf.csproj", "{7DE7CA9C-E9E8-4477-838C-CD28213598F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.OpenSilver", "ServiceHealthStatus.OpenSilver\ServiceHealthStatus.OpenSilver\ServiceHealthStatus.OpenSilver.csproj", "{B39D7C57-871C-47A2-86A5-4BFDCFE5D9AD}"
@@ -25,10 +23,6 @@ Global
 		{FA10F804-039A-4CC8-8933-3145A8875C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA10F804-039A-4CC8-8933-3145A8875C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA10F804-039A-4CC8-8933-3145A8875C7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0D8DA2A-6023-4301-A903-174956BCED99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0D8DA2A-6023-4301-A903-174956BCED99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0D8DA2A-6023-4301-A903-174956BCED99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0D8DA2A-6023-4301-A903-174956BCED99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DE7CA9C-E9E8-4477-838C-CD28213598F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DE7CA9C-E9E8-4477-838C-CD28213598F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DE7CA9C-E9E8-4477-838C-CD28213598F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
