@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public class MainViewModel: BaseViewModel<ServiceCollection, Service, ServiceViewModel>
+    public class MainViewModel : BaseViewModel<ServiceCollection, Service, ServiceViewModel>
     {
-        public string ModelFilePath { get; set; }
-        public string ModelFileContent { get; set; }
+        private ServiceViewModel _selectedService;
         private IStatusProbeService _probeService;
-        public MainViewModel(IServiceProvider services, IStatusProbeService probeService) 
+
+        public MainViewModel(IServiceProvider services, IStatusProbeService probeService)
             : base(services)
         {
             _probeService = probeService;
         }
 
-        private ServiceViewModel _selectedService;
+        public string ModelFilePath { get; set; }
+        public string ModelFileContent { get; set; }
+
         public ServiceViewModel SelectedService
         {
             get => _selectedService;
@@ -28,22 +28,22 @@ namespace ServiceHealthStatus.ViewModel
 
         protected override async Task<IEnumerable<Service>> GetChildrenModels()
         {
-            if (string.IsNullOrEmpty(ModelFilePath) && string.IsNullOrEmpty(ModelFileContent)) 
+            if (string.IsNullOrEmpty(ModelFilePath) && string.IsNullOrEmpty(ModelFileContent))
                 throw new InvalidDataException($"Not initialized {nameof(ModelFilePath)}" +
                                                $"Not initialized {nameof(ModelFileContent)}");
-            
+
             if (!string.IsNullOrEmpty(ModelFilePath) && string.IsNullOrEmpty(ModelFileContent))
             {
-                if(Uri.IsWellFormedUriString(ModelFilePath, UriKind.Absolute))
+                if (Uri.IsWellFormedUriString(ModelFilePath, UriKind.Absolute))
                 {
                     var json = await _probeService.GetJsonFromUri(ModelFilePath);
-                    return Service.LoadFrom(json);
+                    return ServiceHealthStatus.ViewModel.Model.Model.LoadFrom(json);
                 }
-                return await Service.Load(ModelFilePath);
+                return await ServiceHealthStatus.ViewModel.Model.Model.Load(ModelFilePath);
             }
             else
             {
-                return Service.LoadFrom(ModelFileContent);
+                return ServiceHealthStatus.ViewModel.Model.Model.LoadFrom(ModelFileContent);
             }
         }
     }

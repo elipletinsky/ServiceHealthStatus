@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using ServiceHealthStatus.ViewModel.Model;
@@ -13,17 +11,25 @@ namespace ServiceHealthStatus.ViewModel
     public class ServiceInstanceViewModel : BaseViewModel<ServiceInstance, object, DummyViewModel>
     {
         private const int MaxBodyDisplayChars = 30;
-        public string Response 
-        { 
-            get => _response; 
-            set 
+        private string _watch;
+        private readonly IStatusProbeService _probeService;
+        private string _response;
+
+        public ServiceInstanceViewModel(IServiceProvider services, IStatusProbeService probeService)
+                    : base(services)
+        {
+            _probeService = probeService;
+        }
+
+        public string Response
+        {
+            get => _response;
+            set
             {
                 _response = value;
                 OnPropertyChanged();
-            } 
+            }
         }
-
-        private string _watch;
 
         public string Watch
         {
@@ -33,15 +39,6 @@ namespace ServiceHealthStatus.ViewModel
                 _watch = value;
                 OnPropertyChanged();
             }
-        }
-
-        private readonly IStatusProbeService _probeService;
-        private string _response;
-
-        public ServiceInstanceViewModel(IServiceProvider services, IStatusProbeService probeService)
-                    : base(services)
-        {
-            _probeService = probeService;
         }
 
         protected override async Task DoExecuteProbe()
@@ -59,8 +56,8 @@ namespace ServiceHealthStatus.ViewModel
             {
                 Response = BuildResultPatern(result.body);
             }
-            
-            if(((int)result.status >= 200) && ((int)result.status <= 299))
+
+            if ((int)result.status >= 200 && (int)result.status <= 299)
             {
                 Status = Status.Success;
             }
@@ -69,17 +66,18 @@ namespace ServiceHealthStatus.ViewModel
                 Status = Status.Failure;
             }
         }
-        
+
         private string BuildResultPatern(string input)
         {
-            if (string.IsNullOrEmpty(ResultPattern))
+            string resultPatern = ResultPattern;
+            if (string.IsNullOrEmpty(resultPatern))
             {
                 return input.Substring(0, MaxBodyDisplayChars) + "...";
             }
 
-            Regex regex1 = new Regex(ResultPattern);
+            Regex regex1 = new Regex(resultPatern);
             Match match = regex1.Match(input);
-            
+
             return match.Groups[1].Value;
         }
 
