@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceHealthStatus.ViewModel;
@@ -25,11 +19,8 @@ namespace ServiceHealthStatus.OpenSilver
             serviceCollection.ConfigureServices();
             _services = serviceCollection.BuildServiceProvider();
             _mainViewModel = _services.GetRequiredService<MainViewModel>();
-
             DataContext = _mainViewModel;
-
             this.InitializeComponent();
-
             Loaded += MainWindow_Loaded;
         }
 
@@ -37,6 +28,7 @@ namespace ServiceHealthStatus.OpenSilver
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var query = global::OpenSilver.Interop.ExecuteJavaScript("window.location.search").ToString();
+
             if (!string.IsNullOrEmpty(query))
             {
                 var args = HttpUtility.ParseQueryString(query);

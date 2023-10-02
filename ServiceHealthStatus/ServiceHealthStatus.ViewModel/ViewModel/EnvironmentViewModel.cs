@@ -5,7 +5,7 @@ using ServiceHealthStatus.ViewModel.Model;
 
 namespace ServiceHealthStatus.ViewModel
 {
-    public class EnvironmentViewModel : BaseViewModel<Model.Environment, Model.ServiceInstance, ServiceInstanceViewModel>
+    public class EnvironmentViewModel : BaseViewModel<Model.Environment, ServiceInstance, ServiceInstanceViewModel>
     {
         public EnvironmentViewModel(IServiceProvider services)
             : base(services)
