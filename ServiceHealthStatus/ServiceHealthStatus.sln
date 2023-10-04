@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.OpenSil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.OpenSilver.Browser", "ServiceHealthStatus.OpenSilver\ServiceHealthStatus.OpenSilver.Browser\ServiceHealthStatus.OpenSilver.Browser.csproj", "{34F1EBDE-06D5-4E82-A67C-570B713C37E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHealthStatus.ViewModel.Tests", "ServiceHealthStatus.ViewModel.Tests\ServiceHealthStatus.ViewModel.Tests.csproj", "{1942DAB8-E878-4883-BE97-82F29529C327}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHealthStatus.ViewModel.Tests", "ServiceHealthStatus.ViewModel.Tests\ServiceHealthStatus.ViewModel.Tests.csproj", "{1942DAB8-E878-4883-BE97-82F29529C327}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF736287-AC9D-44BA-94D4-A496945258E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\global.json = ..\global.json
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
