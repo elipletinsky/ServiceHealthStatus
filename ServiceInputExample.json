@@ -8,6 +8,7 @@
         "instances": [
           {
             "name": "EU_NegativeTest",
+            "resultPattern": "buildNumbe\":\"(.*)\",",
             "url": "https://service-probe.azurewebsites.net/api/service/Ordering/environment/Test/instance/EU"
           },
           {
