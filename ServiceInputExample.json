@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Ordering",
+    "resultPattern": "buildNumber\":\"(.*)\",",
+    "environments": [
+      {
+        "name": "Test",
+        "instances": [
+          {
+            "name": "EU_NegativeTest",
+            "url": "https://service-probe.azurewebsites.net/api/service/Ordering/environment/Test/instance/EU"
+          },
+          {
+            "name": "US",
+            "url": "https://service-probe.azurewebsites.net/api/service/Ordering/environment/Test/instance/US"
+          }
+        ]
+      },
+      {
+        "name": "PROD",
+        "instances": [
+          {
+            "name": "EU",
+            "url": "https://service-probe.azurewebsites.net/api/service/Ordering/environment/PROD/instance/EU"
+          },
+          {
+            "name": "US",
+            "url": "https://service-probe.azurewebsites.net/api/service/Ordering/environment/PROD/instance/US"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "CustomerService",
+    "resultPattern": "buildNumber\":\"(.*)\",",
+    "environments": [
+      {
+        "name": "Test",
+        "instances": [
+          {
+            "name": "US",
+            "url": "https://service-probe.azurewebsites.net/api/service/CustomerService/environment/Test/instance/US"
+          },
+          {
+            "name": "EU",
+            "url": "https://service-probe.azurewebsites.net/api/service/CustomerService/environment/Test/instance/EU"
+          }
+        ]
+      },
+      {
+        "name": "PROD",
+        "instances": [
+          {
+            "name": "EU",
+            "url": "https://service-probe.azurewebsites.net/api/service/CustomerService/environment/PROD/instance/EU"
+          },
+          {
+            "name": "US",
+            "url": "https://service-probe.azurewebsites.net/api/service/CustomerService/environment/PROD/instance/US"
+          }
+        ]
+      }
+    ]
+  }
+]
