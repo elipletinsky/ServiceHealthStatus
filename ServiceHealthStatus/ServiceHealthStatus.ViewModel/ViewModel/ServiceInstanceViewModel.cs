@@ -48,37 +48,36 @@ namespace ServiceHealthStatus.ViewModel
             var result = await _probeService.Probe(Model.Url);
             watch.Stop();
             Watch = watch.Elapsed.ToString(@"mm\:ss\.fff") + " ms";
-            if (result.body == string.Empty)
-            {
-                Response = $"Failed - Status {(int)result.status}";
-            }
-            else
-            {
-                Response = BuildResultPatern(result.body);
-            }
-
             if ((int)result.status >= 200 && (int)result.status <= 299)
             {
                 Status = Status.Success;
+                (Response, Status) = BuildResultPatern(result.body);
             }
             else
             {
                 Status = Status.Failure;
+                Response = $"Failed - Status {(int)result.status}";
             }
         }
 
-        private string BuildResultPatern(string input)
+        private (string, Status) BuildResultPatern(string input)
         {
             string resultPatern = ResultPattern;
             if (string.IsNullOrEmpty(resultPatern))
             {
-                return input.Substring(0, MaxBodyDisplayChars) + "...";
+                return (input.Substring(0, MaxBodyDisplayChars) + " Missing ResultPattern", Status.Failure);
             }
 
             Regex regex1 = new Regex(resultPatern);
             Match match = regex1.Match(input);
-
-            return match.Groups[1].Value;
+            if(match.Success) 
+            { 
+                 return ($"{match.Groups[1].Value} Matched the Result pattern", Status.Success);
+            }
+            else
+            {
+                return ("Failed - Result pattern doesn't match response", Status.Failure);
+            }
         }
 
         protected override Task<IEnumerable<object>> GetChildrenModels()
