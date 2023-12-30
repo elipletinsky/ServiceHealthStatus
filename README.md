@@ -3,7 +3,7 @@
 
 ## Summary
 
-ServiceHealthStatus is an application disigned to help check sevice health in a list of services. this is done by sending a http probe and displaying information that will indicate the status of that service.
+ServiceHealthStatus is an application designed to help check service health in a list of services. this is done by sending a http probe and displaying information that will indicate the status of that service.
 My objective in writing this project were to improve my .net C# knowledge with new technologies and to practice the NVVM design pattern.
 problem to solve:
 The main problem I solve in this project is how to reach multiple services that are devided by different regions and environments effectively. the second problem is displaying the results of the probe on multiple platforms (currently windows desktop and web).
