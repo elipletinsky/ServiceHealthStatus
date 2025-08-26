@@ -28,6 +28,8 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /ServiceHealthStatus/
 
+    - name: Add .nojekyll
+      run: echo "" > ${{ env.PUBLISH_DIR }}/.nojekyll
 
     - name: GitHub Pages
       if: success()
