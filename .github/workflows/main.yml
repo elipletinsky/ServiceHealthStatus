@@ -16,6 +16,11 @@ jobs:
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1
 
+    - name: Setup .NET 6.0
+      uses: actions/setup-dotnet@v4
+      with:
+       dotnet-version: 6.0.412
+
     - name: Restore app
       run: dotnet restore ServiceHealthStatus\ServiceHealthStatus.sln
 
